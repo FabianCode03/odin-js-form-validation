@@ -75,10 +75,12 @@ input:focus {
 
 input:not(:placeholder-shown):invalid {
   border-color: #ff0000;
+  background-color: #ff000020;
 }
 
 input:not(:placeholder-shown):valid {
   border-color: green;
+  background-color: #00ff0020;
 }
 
 label {
