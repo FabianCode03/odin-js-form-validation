@@ -1,13 +1,5 @@
 import * as constraints from "./modules/constraints.js";
-
-// Extract the validation logic into separate functions
-function validateLocalPart(localPart) {
-  return constraints.LOCAL_PART_PATTERN.test(localPart);
-}
-
-function validateDomainPart(domainPart) {
-  return constraints.DOMAIN_PART_PATTERN.test(domainPart);
-}
+import checkConstraint from "./modules/checkConstraint.js";
 
 const email = document.getElementById("email");
 const emailError = email.nextElementSibling;
@@ -23,10 +15,10 @@ email.addEventListener("input", () => {
   } else {
     const [localPart, domainPart] = emailValue.split("@");
 
-    if (!validateLocalPart(localPart)) {
+    if (!checkConstraint(constraints.LOCAL_PART_PATTERN, localPart)) {
       email.setCustomValidity("local part (before @) is not valid!");
       emailError.textContent = "local part (before @) is not valid!";
-    } else if (!validateDomainPart(domainPart)) {
+    } else if (!checkConstraint(constraints.DOMAIN_PART_PATTERN, domainPart)) {
       email.setCustomValidity("domain part (after @) is not valid!");
       emailError.textContent = "domain part (after @) is not valid!";
     } else {
