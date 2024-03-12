@@ -1,29 +1,35 @@
 import * as constraints from "./modules/constraints.js";
 import checkConstraint from "./modules/checkConstraint.js";
+import {
+  inputIsEmpty,
+  hasAtSign,
+  localePartIsValid,
+  domainPartIsValid,
+} from "./modules/validations.js";
 
 const email = document.getElementById("email");
-const emailError = email.nextElementSibling;
+
+const setValidateAndMessage = (element, message) => {
+  element.setCustomValidity(message);
+  element.nextElementSibling.textContent = message;
+};
 
 email.addEventListener("input", () => {
   const emailValue = email.value;
 
-  if (emailValue === "") {
-    email.setCustomValidity("");
-    emailError.textContent = "";
-  } else if (!emailValue.includes("@")) {
-    emailError.textContent = "missing @-symbol";
+  if (inputIsEmpty()) {
+    setValidateAndMessage(email, "");
+  } else if (!hasAtSign(emailValue)) {
+    setValidateAndMessage(email, "missing @-symbol");
   } else {
     const [localPart, domainPart] = emailValue.split("@");
 
-    if (!checkConstraint(constraints.LOCAL_PART_PATTERN, localPart)) {
-      email.setCustomValidity("local part (before @) is not valid!");
-      emailError.textContent = "local part (before @) is not valid!";
-    } else if (!checkConstraint(constraints.DOMAIN_PART_PATTERN, domainPart)) {
-      email.setCustomValidity("domain part (after @) is not valid!");
-      emailError.textContent = "domain part (after @) is not valid!";
+    if (!localePartIsValid(localPart)) {
+      setValidateAndMessage(email, "local part (before @) is not valid!");
+    } else if (!domainPartIsValid(domainPart)) {
+      setValidateAndMessage(email, "domain part (after @) is not valid!");
     } else {
-      email.setCustomValidity("");
-      emailError.textContent = "";
+      setValidateAndMessage(email, "");
     }
   }
 });
