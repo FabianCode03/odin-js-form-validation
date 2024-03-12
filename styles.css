@@ -58,13 +58,21 @@ button:hover {
 
 input {
   padding: 10px;
-  border: 1px solid #169492;
+  border: 1px solid;
   border-radius: 5px;
+  border-color: #169492;
 }
 
 input:focus {
   outline: none;
-  border-color: #169492;
   border-width: 2px;
   padding: 9px;
+}
+
+input:invalid {
+  border-color: #ff0000;
+}
+
+input:not(:placeholder-shown):valid {
+  border-color: green;
 }
