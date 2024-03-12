@@ -34,12 +34,16 @@ form {
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 70px;
+  justify-content: start;
+  min-height: 80px;
 
-  padding: 10px;
+  padding: 10px 10px 0 10px;
 
   border-radius: 5px;
+}
+
+.form-element:last-child {
+  justify-content: center;
 }
 
 button {
@@ -80,4 +84,10 @@ input:not(:placeholder-shown):valid {
 label {
   font-size: 0.8em;
   margin-bottom: 5px;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 0.75em;
+  margin-top: 5px;
 }
