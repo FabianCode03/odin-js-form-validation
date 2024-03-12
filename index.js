@@ -1,14 +1,12 @@
-// Define the regex patterns as constants
-const LOCAL_PART_PATTERN = /^[a-zA-Z0-9]+([._+-][a-zA-Z0-9]+)*$/;
-const DOMAIN_PART_PATTERN = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
+import * as constraints from "./modules/constraints.js";
 
 // Extract the validation logic into separate functions
 function validateLocalPart(localPart) {
-  return LOCAL_PART_PATTERN.test(localPart);
+  return constraints.LOCAL_PART_PATTERN.test(localPart);
 }
 
 function validateDomainPart(domainPart) {
-  return DOMAIN_PART_PATTERN.test(domainPart);
+  return constraints.DOMAIN_PART_PATTERN.test(domainPart);
 }
 
 const email = document.getElementById("email");
