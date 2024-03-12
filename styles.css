@@ -69,10 +69,15 @@ input:focus {
   padding: 9px;
 }
 
-input:invalid {
+input:not(:placeholder-shown):invalid {
   border-color: #ff0000;
 }
 
 input:not(:placeholder-shown):valid {
   border-color: green;
+}
+
+label {
+  font-size: 0.8em;
+  margin-bottom: 5px;
 }
