@@ -12,22 +12,39 @@ const setValidateAndMessage = (element, message) => {
   element.nextElementSibling.textContent = message;
 };
 
+const validateEmail = emailValue => {
+  // Check if the input is empty
+  if (inputIsEmpty(emailValue)) {
+    setValidateAndMessage(email, "");
+    return;
+  }
+
+  // Check if the email has an @ sign
+  if (!hasAtSign(emailValue)) {
+    setValidateAndMessage(email, "missing @-symbol");
+    return;
+  }
+
+  // Split the email into local and domain parts
+  const [localPart, domainPart] = emailValue.split("@");
+
+  // Validate the local part
+  if (!localePartIsValid(localPart)) {
+    setValidateAndMessage(email, "local part (before @) is not valid!");
+    return;
+  }
+
+  // Validate the domain part
+  if (!domainPartIsValid(domainPart)) {
+    setValidateAndMessage(email, "domain part (after @) is not valid!");
+    return;
+  }
+
+  // If all checks pass, clear the validation message
+  setValidateAndMessage(email, "");
+};
+
 email.addEventListener("input", () => {
   const emailValue = email.value;
-
-  if (inputIsEmpty()) {
-    setValidateAndMessage(email, "");
-  } else if (!hasAtSign(emailValue)) {
-    setValidateAndMessage(email, "missing @-symbol");
-  } else {
-    const [localPart, domainPart] = emailValue.split("@");
-
-    if (!localePartIsValid(localPart)) {
-      setValidateAndMessage(email, "local part (before @) is not valid!");
-    } else if (!domainPartIsValid(domainPart)) {
-      setValidateAndMessage(email, "domain part (after @) is not valid!");
-    } else {
-      setValidateAndMessage(email, "");
-    }
-  }
+  validateEmail(emailValue);
 });
