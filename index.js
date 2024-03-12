@@ -1,5 +1,3 @@
-import * as constraints from "./modules/constraints.js";
-import checkConstraint from "./modules/checkConstraint.js";
 import {
   inputIsEmpty,
   hasAtSign,
